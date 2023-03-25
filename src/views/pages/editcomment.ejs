@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/navbar.ejs') %>
+    </header>
+    <main>
+        <div class='commentUpdate'>
+            <% if(error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <form action="/comments/update/<%= comments._id %>?_method=put" method="post">
+                <h1>Update Comment</h1>
+                <input type="text" name="comment" value="<%= comments.comment %>" id="comment">   
+                <button type="submit">Edit</button>
+                <button><a href="/allpost">cancel</a></button>
+            </form>
+            
+        </form>      
+    </div>
+    </main>
+    
+</body>
+</html>
+

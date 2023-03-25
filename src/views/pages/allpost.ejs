@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head.ejs') %>
+  </head>
+  <body>
+    <header><%- include('../partials/navbar.ejs') %></header>
+    <main>
+      <div class="postClass">
+        <% posts.forEach(post => { %>
+            <div class="singlePost">
+                <h1 class="postTitle"> <%= post.title %></h1> <br>
+                <div class="postdescription">
+                    <p> <%= post.description %></p>
+                </div> <br>
+
+
+                <div class="deletepost">
+                  <% if( session.role == 'admin' || session.user.toString() == post.postBy.toString()) { %> 
+                    <% if (session.role == 'admin' && session.user.toString() !== post.postBy.toString()) { %>
+                      <form action="/posts/delete/<%= post._id %>?_method=delete" method="post">
+                        <button type="submit">DeletePost</button>
+                      </form>                    
+                    <% } else { %>
+                        <form action="/posts/delete/<%= post._id %>?_method=delete" method="post">
+                          <button type="submit">DeletePost</button>
+                        </form>
+                        <form action="posts/edit/<%= post._id %>" method="get">
+                          <button class='updatebutton' type="submit">UpdatePost</button>
+                        </form>
+                  <% } %>
+                  <% } %>
+                </div>
+
+
+
+                <div>
+                    <h2>Comments</h2>
+                </div>
+                <div class="comments">
+                  <% for (let comment of comments) { %>
+                    <div class="singlecomment">
+                      <% if(post._id.toString() == comment.commentOn.toString()) { %>
+                          <%= comment.comment %>
+
+                          <% if (session.user == comment.commentBy.toString()) { %>
+                            <form action="comments/update/<%= comment._id %>" method="get">
+                              <button class='updatebutton' type="submit">Update</button>
+                            </form>                          
+                          <% } %>
+
+                          <% if (session.role == 'admin' || session.user == comment.commentBy.toString() || session.user == post.postBy.toString()) { %>
+                            <form action="/comments/delete/<%= comment._id %>?_method=delete" method="post">
+                              <button type="submit">del</button>
+                            </form>
+                          <% } %>
+
+                          
+                                                  
+                      <%}%>
+                    </div> 
+                  <%}%> 
+                </div>
+
+                <div class="addcomment">
+                    <form action="/createcomment" method="post">
+                        <input type="hidden" name="postid" value= <%= post._id %> >
+                        <button type="submit" >Add New Comment</button>
+                        <textarea name="comment" id="comment" cols="30" rows="2"></textarea>
+                    </form>
+                </div>  
+            </div> <br>
+        <% }) %>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/navbar.ejs') %>
+    </header>
+    <main>     
+        <div class='updateProfile'>
+            <h1>Update Your Info</h1> <br>
+            <% if(error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <form action="/profile/update/<%= user._id %>?_method=put" method="post">
+                <label for="username">USERNAME</label> <br>
+                <input type="text" name="username" value="<%= user.username %>" id="username"><br> <br>
+    
+                <label for="desc">EMAIL</label><br>
+                <input class="textarea" type="text" name="email" value="<%= user.email%>" id="desc"><br><br>
+           
+                <button type="submit">edit</button>
+                <button> <a href="/profile">cancel</a></button>           
+            </form>      
+        </div>
+    </main>
+    
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/forgotnavbar.ejs') %>
+    </header>
+    <main>
+        <div class='forgotpassword'>
+            <% if(error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <form action="/forgotpassword" method="post">
+                <label for="email">Enter email</label> <br>
+                <input type="email" name="email"  id="email"><br> <br>
+
+                <button type="submit">submit</button>
+                <button> <a href="/login">cancel</a></button>
+            </form>      
+        </div>
+    </main>  
+</body>
+</html>

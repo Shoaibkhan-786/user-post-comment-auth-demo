@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/navbar.ejs') %>
+    </header>
+    <main>
+        <div class='newpost'>
+            <% if(error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <h1>Create New Post</h1>
+            <form action="/createpost" method="post">
+            <label for="title">Title</label> <br>
+            <input type="text" name="title" id="title"><br>
+    
+            <label for="desc">Description</label><br>
+            <input type="text" id="desc" name="description"> <br> <br>
+    
+            <button type="submit">create</button>
+            <button> <a href="/allpost">cancel</a></button>
+        </form>      
+    </div>
+    </main>
+    
+</body>
+</html>
+

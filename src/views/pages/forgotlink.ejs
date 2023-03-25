@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/forgotnavbar.ejs') %>
+    </header>
+    <main>
+        <div class='forgotlink'>
+            Click on the Link: <a href="/forgot-password/<%= _id %>/<%= token %>"><%= link %></a>                  
+        </div>
+    </main>  
+</body>
+</html>

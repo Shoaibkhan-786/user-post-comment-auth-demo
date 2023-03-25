@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/navbar.ejs') %>
+    </header>
+    <main>
+       
+        <div class='editpost'>
+             
+            <% if(error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <h1>Update Post</h1>
+
+            <form action="/posts/edit/<%= posts._id%>?_method=PUT " method="post">
+            <label for="title">Title</label> <br>
+            <input type="text" name="title" value="<%= posts.title %>" id="title"><br>
+    
+            <label for="desc">Description</label><br>
+            <input class="textarea" type="text" name="description" value="<%= posts.description %>" id="desc"><br> <br>
+            <!-- <textarea name="description" value="<%= posts.description %>" id="desc" cols="20" rows="10"></textarea><br> -->
+    
+            <button type="submit">Edit</button>
+            <button> <a href="/allpost">cancel</a></button>
+        </form>      
+    </div>
+    </main>
+    
+</body>
+</html>
+
