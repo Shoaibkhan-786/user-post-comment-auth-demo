@@ -8,15 +8,15 @@ exports.createComment = async (req, res, next) => {
         const { user } = req.session;
         const { comment, postid } = req.body;
 
-        const schema = Joi.object({
-            comment: Joi.string().min(3).max(50).required()
-        })
+        // const schema = Joi.object({
+        //     comment: Joi.string().min(3).max(50).required()
+        // })
 
-        let result = schema.validate(comment);
+        // let result = schema.validate(comment);
 
-        if (result.error) {
-            return res.redirect('/allpost');
-        }
+        // if (result.error) {
+        //     return res.redirect('/allpost');
+        // }
         await commentmodel.create({ commentBy: user, commentOn: postid, comment });
         res.redirect('/allpost');
     } catch (error) {
@@ -53,11 +53,13 @@ exports.updateComment = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { comment } = req.body;
+        console.log(comment)
         const Schema = Joi.object({
-            comment: Joi.string().min(2).max(50).required
+            comment: Joi.string().min(2).max(50).required()
         })
 
-        const result = Schema.validate(comment);
+        const result = Schema.validate(req.body);
+        console.log(result.error)
         if (result.error) {
             res.render('pages/editcomment', {
                 error: 'comment is greater than 2 and less than 50',
@@ -71,3 +73,4 @@ exports.updateComment = async (req, res, next) => {
         next(error)
     }
 }
+

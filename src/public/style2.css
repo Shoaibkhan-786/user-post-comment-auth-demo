@@ -119,6 +119,7 @@ section {
   width: 450px;
   border: 2px solid royalblue;
   border-radius: 20px;
+  margin-left: 15px;
 }
 
 .comments {
@@ -231,4 +232,13 @@ section {
   margin-top: 200px;
   width: 500px;
   margin-left: 600px;
+}
+
+.pagination {
+  display: flex;
+  margin-left: 10%;
+}
+
+.pagination * {
+  margin: 0px 5px;
 }

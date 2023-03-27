@@ -37,11 +37,21 @@ exports.createPostProcess = async (req, res, next) => {
 
 exports.fetchAllPost = async (req, res, next) => {
     try {
-        const findPost = await postmodel.find({ isDeleted: false }).sort({ _id: -1 });
-        const findComment = await commentmodel.find({ isDeleted: false });
+        const findPosts = postmodel.find({ isDeleted: false }).sort({ _id: -1 });
+        const findComments = await commentmodel.find({ isDeleted: false });
+
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 5;
+        const skip = (page-1) * limit;
+
+        const count = await postmodel.countDocuments({isDeleted: false});
+        const posts = await findPosts.skip(skip).limit(limit);
+        
         res.render('pages/allpost', {
-            posts: findPost,
-            comments: findComment
+            posts,
+            comments: findComments,
+            currentPage: page,
+            totalPage: Math.ceil(count/limit)
         })
     } catch (error) {
         next(error)

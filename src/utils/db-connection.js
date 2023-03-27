@@ -2,7 +2,7 @@ const {set , connect, connection} = require('mongoose');
 
 function connectDatabase(){
     set('strictQuery',true);
-    return connect("mongodb://localhost:27017/LoginSignup_EJS");
+    return connect("mongodb://localhost:27017/user-post-ejs-demo");
 }
 
 

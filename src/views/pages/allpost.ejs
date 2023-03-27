@@ -5,6 +5,8 @@
   </head>
   <body>
     <header><%- include('../partials/navbar.ejs') %></header>
+    currentPage = <%= currentPage %>
+    totalPage = <%= totalPage %>
     <main>
       <div class="postClass">
         <% posts.forEach(post => { %>
@@ -71,6 +73,52 @@
                 </div>  
             </div> <br>
         <% }) %>
+        
+          
+         <div class = 'pagination'>
+          <% if (totalPage > 0) { %>
+            <% if (currentPage == 1) { %>
+              <li><a href="#">First</a></li>
+            <% } else {%>
+              <li><a href="/allpost?page=1&limit=5">First</a></li>
+            <% } %>
+            
+            <% var i = currentPage > 5  ?  currentPage - 4 : 1 %>  
+  
+                                  <!-- 
+                                      if current page is more than 5 then we will show ... to the left side 
+                                   -->
+                                  <% if ( i !== 1 ) { %>
+                                      <li class="disabled"><a>...</a></li>
+                                  <% } %> 
+  
+                                  <!-- Show loop from 1 to current + 4 but not exceed more than no of pages -->
+                                  <% for (; i <= (currentPage + 4) && i <= totalPage; i++) { %>
+                                      
+                                      <!-- if we are on currentPage page then show user disabled link
+                                              else we will show him a active link
+                                      -->
+                                      <% if (i == currentPage) { %>
+                                          <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                                      <% } else { %>
+                                          <li class="page-item"><a class="page-link" href="/allpost?page=<%= i %>&limit=5"><%= i %></a></li>
+                                      <% } %>
+  
+  
+                                      <% if (i == currentPage + 4 && i < totalPage) { %>
+                                          <li class="disabled page-item"><a class="page-link">...</a></li>
+                                      <% } %>
+                                  <% } %>
+  
+            <% if (currentPage == totalPage) { %>
+              <li><a href="#">last</a></li>
+            <% } else {%>
+              <li><a href="/allpost?page=<%= totalPage %>&limit=5">last</a></li>
+            <% } %>
+  
+          <% } %>
+         </div>
+        
       </div>
     </main>
   </body>
